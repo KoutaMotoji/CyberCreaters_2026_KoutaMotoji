@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(result.h)
+//  C++使った3D(gameover.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -10,6 +10,7 @@
 #include "scene.h"
 #include "object2D.h"
 #include "score.h"
+#include "go_UI.h"
 
 class CGameover : public CScene
 {
@@ -22,6 +23,8 @@ public:
 	void Draw()override;
 private:
 	CScore* m_pScore;
+	CGameOverUI* m_pGOUI;
+	bool m_bSelect;
 };
 
 class CGameoverBG :public CObject2D

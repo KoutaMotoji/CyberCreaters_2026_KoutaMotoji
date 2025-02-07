@@ -14,7 +14,7 @@ const float CTitlePlayer::MOVE_SPEED = 0.55f;
 //==========================================================================================
 CTitlePlayer::CTitlePlayer(int nPriority) : CObject(nPriority)
 {
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < T_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i] = nullptr;
 	}
@@ -44,7 +44,7 @@ void CTitlePlayer::Init()
 //==========================================================================================
 void CTitlePlayer::Uninit()
 {
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < T_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i]->Uninit();
 	}
@@ -105,7 +105,7 @@ void CTitlePlayer::Draw()
 	//ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD,
 		&m_mtxWorld);
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < T_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i]->Draw();	
 	}

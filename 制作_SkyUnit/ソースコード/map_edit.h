@@ -13,7 +13,7 @@
 
 #define MAX_EDITOBJ	(1024)
 
-static constexpr int MAX_OBJNUM = 10;
+static constexpr int MAX_OBJNUM = 12;
 
 
 class CGizmo;

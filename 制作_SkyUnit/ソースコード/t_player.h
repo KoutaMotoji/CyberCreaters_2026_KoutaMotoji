@@ -14,12 +14,11 @@
 
 #include "manager.h"
 
+static constexpr int T_MAX_MODELPARTS = 20;
 
-#define MAX_MODELPARTS	(20)
-
-#define MAX_PARTS	(20)
-#define MAX_KEYSET	(20)
-#define MAX_MOTION	(7)
+static constexpr int T_MAX_PARTS = 20;
+static constexpr int T_MAX_KEYSET = 20;
+static constexpr int T_MAX_MOTION = 7;
 
 class CTitlePlayer :public CObject
 {
@@ -45,11 +44,11 @@ private:
 
 	static const float MOVE_SPEED;			//移動スピードの設定
 
-	CModelParts* m_apModelParts[MAX_MODELPARTS];
+	CModelParts* m_apModelParts[T_MAX_MODELPARTS];
 
 	void ModelDataLoad();
 
-	char* m_pModelFileName[MAX_MODELPARTS];
+	char* m_pModelFileName[T_MAX_MODELPARTS];
 	int m_ModelParts;	//モデルパーツ数
 
 	//=====================			クオータニオン用		====================================

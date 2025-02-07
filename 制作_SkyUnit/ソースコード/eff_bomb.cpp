@@ -67,7 +67,6 @@ void CEffBomb::Update()
 		{
 			CBillboard::AddAnim({ 1,0 });
 		}
-		Anim = Anim;
 	}
 	else
 	{
@@ -105,6 +104,7 @@ CEffBomb* CEffBomb::Create(D3DXVECTOR3 pos)
 	Effect->SetPolygonParam(pos, 60.0f, 60.0f);
 	Effect->Init();
 	Effect->m_nTime = 0;
+
 	return Effect;
 }
 
@@ -118,5 +118,6 @@ CEffBomb* CEffBomb::Create(D3DXVECTOR3 pos, float Radius)
 	Effect->SetPolygonParam(pos, Radius, Radius);
 	Effect->Init();
 	Effect->m_nTime = 0;
+
 	return Effect;
 }

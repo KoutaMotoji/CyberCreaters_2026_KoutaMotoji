@@ -39,7 +39,6 @@ private:
 
 	static const float MAX_WIDTH;
 	static const float MAX_HEIGHT;
-
 };
 
 #endif

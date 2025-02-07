@@ -27,6 +27,8 @@ namespace
 		"ボス出現ポイント",
 		"アイテム出現ポイント",
 		"通常敵出現ポイント",
+		"看板＿左右",
+		"看板＿上下",
 	};
 
 	const char* Gizmodraw[2] = {
@@ -190,7 +192,7 @@ void CMapEdit::EditObj()
 void CMapEdit::SaveFile()
 {
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data001.txt", "w");
+	pFile = fopen("data\\TEXT\\Data002.txt", "w");
 	if (pFile != nullptr)
 	{
 		fprintf(pFile, "%d\n", m_MaxObj);
@@ -220,7 +222,7 @@ void CMapEdit::SaveFile()
 void CMapEdit::LoadFile()
 {
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data001.txt", "r");
+	pFile = fopen("data\\TEXT\\Data002.txt", "r");
 	if (pFile != nullptr)
 	{
 		int nGetCnt = 0;
@@ -481,6 +483,7 @@ void CMapEdit::SetEditScale()
 //
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
+
 //==========================================================================================
 //デバッグ表示用初期化処理
 //==========================================================================================
@@ -534,7 +537,6 @@ void CMapEdit::DrawFont()
 		D3DCOLOR_RGBA(255, 255, 255, 255));
 
 	//memset(&str[0], NULL, sizeof(str));
-
 }
 //
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -554,7 +556,7 @@ void CMapEdit::SetLoadMap()
 	SetInfo ObjInfo[1024] = {};
 	int MaxObj = 0;
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data001.txt", "r");
+	pFile = fopen("data\\TEXT\\Data002.txt", "r");
 
 	if (pFile != nullptr)
 	{

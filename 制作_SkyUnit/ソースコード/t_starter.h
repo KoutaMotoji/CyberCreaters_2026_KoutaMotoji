@@ -31,6 +31,7 @@ public:
 	void Draw()override;		//描画
 	static CStarter* Create(D3DXVECTOR3 pos);
 
+	void SetStart();
 private:
 	D3DXVECTOR3 m_pos, m_rot, m_size;	//座標・回転・大きさ
 	D3DXMATRIX m_mtxWorld;			//ワールドマトリックス

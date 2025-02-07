@@ -68,7 +68,7 @@ void CSkyBg::Draw()
 CSkyBg* CSkyBg::Create(D3DXVECTOR3 pos)
 {
 	CSkyBg* field = new CSkyBg;
-	field->SetPolygonParam(pos, 15000, 15000);
+	field->SetPolygonParam(pos, FLOOR_SIZE, FLOOR_SIZE);
 	field->Init();
 	field->SetRot({ 0.0f,0.0f,0.0f });
 	return field;

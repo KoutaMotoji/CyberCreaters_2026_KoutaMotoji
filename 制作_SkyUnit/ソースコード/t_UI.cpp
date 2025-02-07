@@ -7,8 +7,6 @@
 #include "t_UI.h"
 #include "manager.h"
 
-//静的メンバ初期化
-
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
@@ -45,13 +43,7 @@ void CTitleUI::Uninit()
 //更新処理
 //==========================================================================================
 void CTitleUI::Update()
-{
-	if (CManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_RETURN) == true ||
-		CManager::GetInstance()->GetJoypad()->GetTrigger(CJoypad::JOYPAD_A) == true)
-	{
-		Release();
-		return;
-	}
+{	
 	CObject2D::Update();
 }
 
@@ -90,61 +82,78 @@ CTitleUI* CTitleUI::Create(D3DXVECTOR3 pos,int Type, D3DXVECTOR2 PolySize)
 //----------------------------------------------------------------------------------------------------------
 //UI切り替え用
 
+//==========================================================================================
 //初期化オーバーロード
+//==========================================================================================
 void CTitleLogo::Init()
 {
-	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\title_logo.png");
+	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\title_logo_A.png");
 	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx), 1, 1);
 
 	CObject::SetType(TYPE_3D_TITLEOBJ);
 	CObject2D::Init();
 }
 
-//更新オーバーロード
+//==========================================================================================
+//更新
+//==========================================================================================
 void CTitleLogo::Update()
 {
 	CTitleUI::Update();
 }
 
-//初期化オーバーロード
+//==========================================================================================
+//初期化
+//==========================================================================================
 void CTitleButton::Init()
 {
-	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\title_ui.png");
-	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx), 1, 1);
+	m_TexIdx[0] = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\TitleSelect000.png");
+	m_TexIdx[1] = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\TitleSelect001.png");
+	m_TexIdx[2] = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\TitleSelect002.png");
+
+	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(m_TexIdx[0]), 1, 1);
 
 	CObject::SetType(TYPE_3D_TITLEOBJ);
 	CObject2D::Init();
 }
 
-//更新オーバーロード
+//==========================================================================================
+//更新
+//==========================================================================================
 void CTitleButton::Update()
 {
-	AlphableUI();
 	CTitleUI::Update();
 }
 
-void CTitleButton::AlphableUI()
+//==========================================================================================
+//生成処理
+//==========================================================================================
+CTitleButton* CTitleButton::Create(D3DXVECTOR3 pos,D3DXVECTOR2 PolySize)
 {
-	float speed = SWAP_SPEED;
+	CTitleButton* background;
 
-	if (m_LocalCol.a <= 0.0f ||
-		m_LocalCol.a >= 1.0f)
-	{
-		m_bColSwitch = m_bColSwitch ? false : true;
-	}
-	if (m_bColSwitch)
-	{
-		m_LocalCol.a -= speed;
-	}
-	else
-	{
-		m_LocalCol.a += speed;
-	}
-	CObject2D::SetColor(m_LocalCol);
+	background = new CTitleButton;
+
+	background->SetPolygonParam(pos, PolySize.y, PolySize.x);
+	background->Init();
+	return background;
 }
+//==========================================================================================
+//テクスチャを変更
+//==========================================================================================
+void CTitleButton::SetTex(int num)
+{
+	if (num < 0 || num >= MAX_TEX) {
+		return;
+	}
+	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(m_TexIdx[num]), 1, 1);
+}
+
 //----------------------------------------------------------------------------------------------------------
 
-//初期化オーバーロード
+//==========================================================================================
+//初期化
+//==========================================================================================
 void CMoveButton::Init()
 {
 	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\skip_over.png");
@@ -157,7 +166,9 @@ void CMoveButton::Init()
 	CObject2D::SetColor({ 1.0f,1.0f,1.0f,0.7f });
 }
 
-//更新オーバーロード
+//==========================================================================================
+//更新
+//==========================================================================================
 void CMoveButton::Update()
 {
 	if (CManager::GetInstance()->GetKeyboard()->GetRepeat(DIK_RETURN) == true ||
@@ -175,7 +186,7 @@ void CMoveButton::Update()
 
 	if (m_Gauge > PUSHING_TIME)
 	{
-		CManager::GetInstance()->GetFade()->SetFade(CFade::FADE_IN, CScene::MODE_GAME);
+		CManager::GetInstance()->GetFade()->SetFade(CFade::FADE_IN, m_mode);
 		return;
 	}
 	CObject2D::Update();
@@ -185,16 +196,19 @@ void CMoveButton::Update()
 //==========================================================================================
 //生成処理
 //==========================================================================================
-CMoveButton* CMoveButton::Create()
+CMoveButton* CMoveButton::Create(CScene::MODE mode)
 {
 	CMoveButton* background = new CMoveButton;
 	D3DXVECTOR3 pos = { SCREEN_WIDTH - PushGaugeWidth * 0.5f,SCREEN_HEIGHT - PushGaugeHeight * 0.5f,0.0f };
 	background->SetPolygonParam(pos, PushGaugeHeight, PushGaugeWidth, PUSHING_TIME, false);
 	background->Init();
+	background->m_mode = mode;
 	return background;
 }
 
-//初期化オーバーロード
+//==========================================================================================
+//初期化
+//==========================================================================================
 void CMoveButtonBack::Init()
 {
 	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\skip_Under.png");
@@ -211,6 +225,62 @@ void CMoveButtonBack::Init()
 CMoveButtonBack* CMoveButtonBack::Create(D3DXVECTOR3 pos)
 {
 	CMoveButtonBack* background = new CMoveButtonBack;
+
+	background->SetPolygonParam(pos, PushGaugeHeight, PushGaugeWidth);
+	background->Init();
+	return background;
+}
+
+//==========================================================================================
+//初期化
+//==========================================================================================
+void CFinishCheck::Init()
+{
+	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\TitleFinish.png");
+	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx), 1, 1);
+
+	CObject::SetType(TYPE_3D_TITLEOBJ);
+	CObject2D::Init();
+}
+
+//==========================================================================================
+//初期化
+//==========================================================================================
+void CFinishCheck::Update()
+{
+	CObject2D::SetZoom(m_fSize);
+	if (!m_bPush)
+	{
+		if (m_fSize < 1.0f)
+		{
+			m_fSize += 0.05f;
+		}
+	}
+	else
+	{
+		if (m_fSize > 0.0f)
+		{
+			m_fSize -= 0.05f;
+		}
+		else
+		{
+			CObject::Release();
+			return;
+		}
+	}
+	if (CManager::GetInstance()->GetJoypad()->GetTrigger(CJoypad::JOYPAD_B))
+	{
+		m_bPush = true;
+	}
+	CObject2D::Update();
+}
+
+//==========================================================================================
+//生成処理
+//==========================================================================================
+CFinishCheck* CFinishCheck::Create(D3DXVECTOR3 pos)
+{
+	CFinishCheck* background = new CFinishCheck;
 
 	background->SetPolygonParam(pos, PushGaugeHeight, PushGaugeWidth);
 	background->Init();

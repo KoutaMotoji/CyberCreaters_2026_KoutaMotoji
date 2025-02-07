@@ -7,6 +7,12 @@
 #include "main.h"
 #include "joypad.h"
 
+namespace
+{
+	int LEFT_JOYSTICK_DEADZONE = 3500;
+	int RIGHT_JOYSTICK_DEADZONE = 4200;
+}
+
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
@@ -85,19 +91,19 @@ void CJoypad::Update()
 		//XINPUT_STATE state;
 		//ZeroMemory(&state, sizeof(XINPUT_STATE));
 		// 各スティックの入力値がデッドゾーン以下なら入力値を0にする
-		if ((JoykeyState.Gamepad.sThumbLX <  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE &&
-			JoykeyState.Gamepad.sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) &&
-			(JoykeyState.Gamepad.sThumbLY <  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE &&
-				JoykeyState.Gamepad.sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE))
+		if ((JoykeyState.Gamepad.sThumbLX <  LEFT_JOYSTICK_DEADZONE &&
+			JoykeyState.Gamepad.sThumbLX > -LEFT_JOYSTICK_DEADZONE) &&
+			(JoykeyState.Gamepad.sThumbLY <  LEFT_JOYSTICK_DEADZONE &&
+				JoykeyState.Gamepad.sThumbLY > -LEFT_JOYSTICK_DEADZONE))
 		{//左スティックがデッドゾーン内なので数値を無効
 			JoykeyState.Gamepad.sThumbLX = 0;
 			JoykeyState.Gamepad.sThumbLY = 0;
 		}
 
-		if ((JoykeyState.Gamepad.sThumbRX <  XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE &&
-			JoykeyState.Gamepad.sThumbRX >  -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) &&
-			(JoykeyState.Gamepad.sThumbRY <  XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE &&
-				JoykeyState.Gamepad.sThumbRY >  -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE))
+		if ((JoykeyState.Gamepad.sThumbRX <  RIGHT_JOYSTICK_DEADZONE &&
+			JoykeyState.Gamepad.sThumbRX >  -RIGHT_JOYSTICK_DEADZONE) &&
+			(JoykeyState.Gamepad.sThumbRY <  RIGHT_JOYSTICK_DEADZONE &&
+				JoykeyState.Gamepad.sThumbRY >  -RIGHT_JOYSTICK_DEADZONE))
 		{//右スティックがデッドゾーン内なので数値を無効
 			JoykeyState.Gamepad.sThumbRX = 0;
 			JoykeyState.Gamepad.sThumbRY = 0;
@@ -196,16 +202,16 @@ bool CJoypad::GetJoyStickL(JOYSTICK joystick)
 	switch (joystick)
 	{
 	case JOYSTICK_DLEFT:
-		return m_joyKeyState.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbLX <= -LEFT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DRIGHT:
-		return m_joyKeyState.Gamepad.sThumbLX >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbLX >= LEFT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DUP:
-		return m_joyKeyState.Gamepad.sThumbLY >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbLY >= LEFT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DDOWN:
-		return m_joyKeyState.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbLY <= -LEFT_JOYSTICK_DEADZONE;
 		break;
 	}
 }
@@ -218,16 +224,16 @@ bool CJoypad::GetJoyStickR(JOYSTICK joystick)
 	switch (joystick)
 	{
 	case JOYSTICK_DLEFT:
-		return m_joyKeyState.Gamepad.sThumbRX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbRX <= -RIGHT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DRIGHT:
-		return m_joyKeyState.Gamepad.sThumbRX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbRX >= RIGHT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DUP:
-		return m_joyKeyState.Gamepad.sThumbRY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbRY >= RIGHT_JOYSTICK_DEADZONE;
 		break;
 	case JOYSTICK_DDOWN:
-		return m_joyKeyState.Gamepad.sThumbRY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE;
+		return m_joyKeyState.Gamepad.sThumbRY <= -RIGHT_JOYSTICK_DEADZONE;
 		break;
 	}
 }
@@ -238,10 +244,10 @@ bool CJoypad::GetJoyStickR(JOYSTICK joystick)
 D3DXVECTOR2 CJoypad::GetJoyStickVecL()
 {
 	// 各スティックの入力値がデッドゾーン以下なら入力値を0にする
-	if ((m_joyKeyState.Gamepad.sThumbLX >  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE ||
-		m_joyKeyState.Gamepad.sThumbLX < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ||
-		(m_joyKeyState.Gamepad.sThumbLY >  XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE ||
-			m_joyKeyState.Gamepad.sThumbLY < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE))
+	if ((m_joyKeyState.Gamepad.sThumbLX >  LEFT_JOYSTICK_DEADZONE ||
+		m_joyKeyState.Gamepad.sThumbLX < -LEFT_JOYSTICK_DEADZONE) ||
+		(m_joyKeyState.Gamepad.sThumbLY >  LEFT_JOYSTICK_DEADZONE ||
+			m_joyKeyState.Gamepad.sThumbLY < -LEFT_JOYSTICK_DEADZONE))
 	{//左スティック
 		float VecX = sinf(atan2f((float)m_joyKeyState.Gamepad.sThumbLX * 0.01f, (float)m_joyKeyState.Gamepad.sThumbLY * 0.01f));
 		float VecY = cosf(atan2f((float)m_joyKeyState.Gamepad.sThumbLX * 0.01f, (float)m_joyKeyState.Gamepad.sThumbLY * 0.01f));
@@ -259,10 +265,10 @@ D3DXVECTOR2 CJoypad::GetJoyStickVecL()
 D3DXVECTOR2 CJoypad::GetJoyStickVecR()
 {
 	// 各スティックの入力値がデッドゾーン以下なら入力値を0にする
-	if ((m_joyKeyState.Gamepad.sThumbRX > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE ||
-		m_joyKeyState.Gamepad.sThumbRX < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ||
-		(m_joyKeyState.Gamepad.sThumbRY > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE ||
-			m_joyKeyState.Gamepad.sThumbRY < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE))
+	if ((m_joyKeyState.Gamepad.sThumbRX > RIGHT_JOYSTICK_DEADZONE ||
+		m_joyKeyState.Gamepad.sThumbRX < -RIGHT_JOYSTICK_DEADZONE) ||
+		(m_joyKeyState.Gamepad.sThumbRY > RIGHT_JOYSTICK_DEADZONE ||
+			m_joyKeyState.Gamepad.sThumbRY < -RIGHT_JOYSTICK_DEADZONE))
 	{//左スティック
 		float VecX = sinf(atan2f((float)m_joyKeyState.Gamepad.sThumbRX * 0.01f, (float)m_joyKeyState.Gamepad.sThumbRY * 0.01f));
 		float VecY = cosf(atan2f((float)m_joyKeyState.Gamepad.sThumbRX * 0.01f, (float)m_joyKeyState.Gamepad.sThumbRY * 0.01f));
@@ -284,16 +290,16 @@ bool CJoypad::GetJoyStickTrigger(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbLX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbLY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}
@@ -302,16 +308,16 @@ bool CJoypad::GetJoyStickTrigger(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbRX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbRX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbRY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbRY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}
@@ -326,16 +332,16 @@ bool CJoypad::GetJoyStickRelease(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbLX >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX >= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbLX <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX <= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbLY <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY <= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbLY >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY >= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}
@@ -344,16 +350,16 @@ bool CJoypad::GetJoyStickRelease(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbRX >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX >= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbRX <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX <= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbRY <= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY <= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbRY >= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY >= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}
@@ -368,16 +374,16 @@ bool CJoypad::GetJoyStickRepeat(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbLX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLX >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLX >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbLY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbLY <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbLY <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}
@@ -386,16 +392,16 @@ bool CJoypad::GetJoyStickRepeat(JOYKEY joykey, JOYSTICK joystick)
 		switch (joystick)
 		{
 		case JOYSTICK_DLEFT:
-			return (m_joyKeyState.Gamepad.sThumbRX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DRIGHT:
-			return (m_joyKeyState.Gamepad.sThumbRX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRX >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRX >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DUP:
-			return (m_joyKeyState.Gamepad.sThumbRY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY >= RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY >= RIGHT_JOYSTICK_DEADZONE);
 			break;
 		case JOYSTICK_DDOWN:
-			return (m_joyKeyState.Gamepad.sThumbRY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE);
+			return (m_joyKeyState.Gamepad.sThumbRY <= -RIGHT_JOYSTICK_DEADZONE && m_joyKeyOldState.Gamepad.sThumbRY <= -RIGHT_JOYSTICK_DEADZONE);
 			break;
 		}
 	}

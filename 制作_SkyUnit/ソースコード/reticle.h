@@ -15,7 +15,7 @@ static constexpr float Poly_Size = 25.0f;
 class CReticle :public CBillboard
 {
 public:
-	CReticle();				//コンストラクタ
+	CReticle(int nPriority = 4);				//コンストラクタ
 	~CReticle()override;		//デストラクタ
 	void Init()override;		//初期化
 	void Uninit()override;		//終了

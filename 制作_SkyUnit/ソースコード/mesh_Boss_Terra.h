@@ -17,19 +17,10 @@
 
 #include "shadow.h"
 
-static constexpr float WORLD_WALL_X = 1000;
-static constexpr float WORLD_WALL_Y = 600;
 
-//モーション用定数
-static constexpr int B_MAX_MODELPARTS = 21;
-static constexpr int B_MAX_PARTS = 21;
-static constexpr int B_MAX_KEYSET = 21;
-static constexpr int B_MAX_MOTION = 9;
-
-static constexpr int B_MUZZLE_CUR = 6;
-static constexpr float B_KNIFE_ROTSPEED = 0.75f;
 
 class CBossBomb;
+
 class CBossTerra :public CObject
 {
 public:
@@ -55,10 +46,21 @@ public:
 protected:
 
 private:
-	D3DXVECTOR3 m_pos, m_rot, m_size;	//座標・回転・大きさ
-	D3DXVECTOR3 m_move;				//移動量
-	D3DXMATRIX m_mtxWorld;			//ワールドマトリックス
-	D3DXMATRIX m_mtxWeapon[B_MUZZLE_CUR];	//武器のワールドマトリックス
+	static constexpr float WORLD_WALL_X = 1000;
+	static constexpr float WORLD_WALL_Y = 600;
+
+	//モーション用定数
+	static constexpr int MAX_MODELPARTS = 21;
+	static constexpr int MAX_PARTS = 21;
+	static constexpr int MAX_KEYSET = 21;
+	static constexpr int MAX_MOTION = 9;
+	static constexpr int MUZZLE_CUR = 6;
+
+
+	D3DXVECTOR3 m_pos, m_rot, m_size;		//座標・回転・大きさ
+	D3DXVECTOR3 m_move;						//移動量
+	D3DXMATRIX m_mtxWorld;					//ワールドマトリックス
+	D3DXMATRIX m_mtxWeapon[MUZZLE_CUR];		//武器のワールドマトリックス
 	void SetWeaponMtx();
 
 	CBossReticle* m_Reticle[2];
@@ -74,9 +76,9 @@ private:
 
 	CBossBomb* m_Bomb;
 
-	CModelParts* m_apModelParts[B_MAX_MODELPARTS];
+	CModelParts* m_apModelParts[MAX_MODELPARTS];
 
-	char* m_pModelFileName[B_MAX_MODELPARTS];
+	char* m_pModelFileName[MAX_MODELPARTS];
 	int m_ModelParts;	//モデルパーツ数
 	int m_CurKey;		//現在のキー番号
 	int m_CurMotion;	//現在のモーション番号
@@ -96,15 +98,15 @@ private:
 	{
 
 		int nFrame;
-		Key aKey[B_MAX_PARTS];
+		Key aKey[MAX_PARTS];
 	};
 	struct Motion
 	{
 		int bLoop;
 		int nKeyNum;
-		KeySet aKetSet[B_MAX_KEYSET];
+		KeySet aKetSet[MAX_KEYSET];
 	};
-	Motion m_aMotion[B_MAX_MOTION];
+	Motion m_aMotion[MAX_MOTION];
 
 	void MotionInit();
 	void MotionDataLoad();
@@ -158,6 +160,9 @@ public:
 	void Update()override;
 	static CBossEnemySpawner* Create(D3DXVECTOR3 pos,int num);
 protected:
+	static constexpr float WORLD_WALL_X = 1000;
+	static constexpr float WORLD_WALL_Y = 600;
+
 	void Move();
 	void SetEnemy();
 	D3DXVECTOR3 m_moveVec;
@@ -192,6 +197,8 @@ public:
 	static CBossKnife* Create(D3DXVECTOR3 startPos,int Reach,bool Side);
 	void Braking();
 private:
+	static constexpr float KNIFE_ROTSPEED = 0.75f;
+
 	D3DXVECTOR3 m_StartPos,m_Target1,m_Target2;
 	int m_Reach;
 	int m_Sec;

@@ -64,9 +64,9 @@ HRESULT CGame::Init()
 	CManager::GetInstance()->GetCamera()->SetCameraHeigjt(50.0f);
 	CManager::GetInstance()->GetCamera()->DefuseFreeCam();
 
+	CManager::GetInstance()->GetSound()->PlaySound(CSound::SOUND_LABEL_BGM_GAME);
 	return S_OK;
 }
-
 
 //==========================================================================================
 //èIóπèàóù

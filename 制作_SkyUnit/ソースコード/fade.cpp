@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(result.cpp)
+//  C++使った3D(fade.cpp)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -102,7 +102,6 @@ void CFade::Update()
 				m_bFinish = true;
 				m_bUse = false;
 				CManager::GetInstance()->SetMode(setmode);
-				CManager::GetInstance()->GetSound()->StopSound();
 
 				SetFade(FADE_OUT, setmode);
 			}

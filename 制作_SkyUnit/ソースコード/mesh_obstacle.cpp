@@ -26,6 +26,9 @@ namespace {
 		OBS_TYPE_BOSS_SPAWNER,
 		OBS_TYPE_ITEM_EMITTER,
 		OBS_TYPE_ENEMY_SPAWNER,
+		OBS_TYPE_GUIDE_SIDE,
+		OBS_TYPE_GUIDE_OVER,
+
 	};
 	const char* modelName[MAX_MODELTYPE]{
 		"data\\MODEL\\gate000.x",
@@ -38,6 +41,9 @@ namespace {
 		"data\\MODEL\\boss_spawner.x",
 		"data\\MODEL\\ItemEmitter.x",
 		"data\\MODEL\\enemy_spawner.x",
+		"data\\MODEL\\guide_side.x",
+		"data\\MODEL\\guide_over.x",
+
 	};
 };
 
@@ -92,10 +98,16 @@ void CMeshObstacle::Update()
 //==========================================================================================
 void CMeshObstacle::Draw()
 {
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();;
+
+	// –@ü‚ÌŽ©“®³‹K‰»‚ð—LŒø‚É
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
 	if (CPlayerObserver::GetInstance()->GetPlayerPos().z < CObjectX::GetPos().z + 10000)
 	{
 		CObjectX::Draw();
 	}
+	// –@ü‚ÌŽ©“®³‹K‰»‚ð–³Œø‚É
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 }
 
 //==========================================================================================

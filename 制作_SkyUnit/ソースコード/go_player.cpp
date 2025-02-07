@@ -9,13 +9,12 @@
 
 const float CGameOverPlayer::MOVE_SPEED = 0.55f;
 
-
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
 CGameOverPlayer::CGameOverPlayer(int nPriority) : CObject(nPriority)
 {
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < GO_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i] = nullptr;
 	}
@@ -35,7 +34,7 @@ CGameOverPlayer::~CGameOverPlayer()
 void CGameOverPlayer::Init()
 {
 	ModelDataLoad();
-	CObject::SetType(TYPE_3D_PLAYER);
+	CObject::SetType(TYPE_3D_GAMEOVEROBJ);
 	m_pShadow = CShadow::Create(m_pos, 50);
 
 	//CManager::GetInstance()->GetCamera()->SetRotz(D3DX_PI);
@@ -46,7 +45,7 @@ void CGameOverPlayer::Init()
 //==========================================================================================
 void CGameOverPlayer::Uninit()
 {
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < GO_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i]->Uninit();
 	}
@@ -107,7 +106,7 @@ void CGameOverPlayer::Draw()
 	//ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD,
 		&m_mtxWorld);
-	for (int i = 0; i < MAX_MODELPARTS; ++i)
+	for (int i = 0; i < GO_MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i]->Draw();
 	}

@@ -15,22 +15,10 @@
 
 #include "manager.h"
 
-//モーション用定数
-static constexpr int MAX_MODELPARTS = 20;
-static constexpr int MAX_PARTS = 20;
-static constexpr int MAX_KEYSET = 20;
-static constexpr int MAX_MOTION = 7;
-
-//ステータス用定数
-static constexpr int MAX_LIFE = 1000;			//体力
-static constexpr float MOVE_JET_SPEED = 3.45f;	//移動スピードの設定
-static constexpr float MOVE_ROBO_SPEED = 2.00f;	//移動スピードの設定
-
-static constexpr float SCROLL_SPEED = 5.5f;		//自動スクロールスピードの設定
-static constexpr float RETICLE_VALUE = 8.5f;	//レティクルの移動ギャップ
 
 class CEnemyBase;
 class CCollision;
+class CMainUI;
 
 class CPlayerX :public CObject
 {
@@ -51,11 +39,26 @@ public:
 	D3DXVECTOR3 GetPos() { return m_pos; };
 	D3DXVECTOR3 GetMove() { return m_move; };
 private:
-	D3DXVECTOR3 m_pos,m_rot,m_size;	//座標・回転・大きさ
-	D3DXVECTOR3 m_move;				//移動量
-	D3DXVECTOR3 m_OldPos;			//過去の位置
-	D3DXMATRIX m_mtxWorld;			//ワールドマトリックス
-	D3DXMATRIX m_mtxWeaponWorld;	//武器のワールドマトリックス
+
+	//モーション用定数
+	static constexpr int MAX_MODELPARTS = 20;
+	static constexpr int MAX_PARTS = 20;
+	static constexpr int MAX_KEYSET = 20;
+	static constexpr int MAX_MOTION = 7;
+
+	//ステータス用定数
+	static constexpr int MAX_LIFE = 1000;			//体力
+	static constexpr float MOVE_JET_SPEED = 3.45f;	//移動スピードの設定
+	static constexpr float MOVE_ROBO_SPEED = 2.00f;	//移動スピードの設定
+
+	static constexpr float SCROLL_SPEED = 5.5f;		//自動スクロールスピードの設定
+	static constexpr float RETICLE_VALUE = 8.5f;	//レティクルの移動ギャップ
+
+	D3DXVECTOR3 m_pos,m_rot,m_size;			//座標・回転・大きさ
+	D3DXVECTOR3 m_move;						//移動量
+	D3DXVECTOR3 m_OldPos;					//過去の位置
+	D3DXMATRIX m_mtxWorld;					//ワールドマトリックス
+	D3DXMATRIX m_mtxWeaponWorld;			//武器のワールドマトリックス
 	D3DXVECTOR3 m_WeaponCollisionPos;		//武器の角度をもとに算出する当たり判定の相対位置
 	void FloorCollision();					//床との当たり判定
 
@@ -134,11 +137,13 @@ private:
 	bool MeshObstacle();
 	void GetItem();
 	bool CheckLockonBlocking();
+	bool PushRSholder();
 
 	bool CheckToObs(CEnemyBase* pEnemy);
 	CShadow* m_pShadow;
+	CMainUI* m_pMainUI;
 
-	//=====================			クオータニオン用		====================================
+	//========================			クオータニオン用		====================================
 	D3DXMATRIX m_mtxRot;		//回転マトリックス(保存用)
 	D3DXQUATERNION m_quat;		//クオータニオン
 	D3DXVECTOR3 m_vecAxis;		//回転軸のベクトル

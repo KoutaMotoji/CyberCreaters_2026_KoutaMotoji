@@ -58,18 +58,9 @@ public:
 	void Init()override;		//初期化
 
 	static CMainUI* Create();
+	void ChangeUI(int playermode);
 private:
-};
-
-class CMainBlock :public CObject2D
-{
-public:
-	CMainBlock(int nPriority = 5) : CObject2D(nPriority) {};		//コンストラクタ
-	~CMainBlock()override = default;				//デストラクタ
-	void Init()override;		//初期化
-	void Update()override;
-	static CMainBlock* Create();
-private:
+	int m_TexIdx[2];
 };
 
 #endif

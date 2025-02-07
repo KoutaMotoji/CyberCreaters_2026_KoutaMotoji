@@ -154,7 +154,6 @@
     <ClInclude Include="bullet3D.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
-    <ClInclude Include="EDIT_particle.h" />
     <ClInclude Include="eff_bomb.h" />
     <ClInclude Include="eff_explosion.h" />
     <ClInclude Include="eff_smoke.h" />
@@ -185,14 +184,14 @@
     <ClInclude Include="objectX.h" />
     <ClInclude Include="particle.h" />
     <ClInclude Include="particle3D.h" />
-    <ClInclude Include="particle_behavior.h" />
-    <ClInclude Include="particle_system.h" />
     <ClInclude Include="playerX.h" />
     <ClInclude Include="player_observer.h" />
     <ClInclude Include="player_UI.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="reticle.h" />
+    <ClInclude Include="r_boss.h" />
+    <ClInclude Include="r_player.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
@@ -203,6 +202,8 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="tree_billboard.h" />
+    <ClInclude Include="tutorial.h" />
+    <ClInclude Include="tu_sky.h" />
     <ClInclude Include="t_anim_border.h" />
     <ClInclude Include="t_base.h" />
     <ClInclude Include="t_player.h" />
@@ -217,7 +218,6 @@
     <ClCompile Include="bullet3D.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
-    <ClCompile Include="EDIT_particle.cpp" />
     <ClCompile Include="eff_bomb.cpp" />
     <ClCompile Include="eff_explosion.cpp" />
     <ClCompile Include="eff_smoke.cpp" />
@@ -248,13 +248,14 @@
     <ClCompile Include="objectX.cpp" />
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particle3D.cpp" />
-    <ClCompile Include="particle_system.cpp" />
     <ClCompile Include="playerX.cpp" />
     <ClCompile Include="player_observer.cpp" />
     <ClCompile Include="player_UI.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="reticle.cpp" />
+    <ClCompile Include="r_boss.cpp" />
+    <ClCompile Include="r_player.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
@@ -265,6 +266,8 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="tree_billboard.cpp" />
+    <ClCompile Include="tutorial.cpp" />
+    <ClCompile Include="tu_sky.cpp" />
     <ClCompile Include="t_anim_border.cpp" />
     <ClCompile Include="t_base.cpp" />
     <ClCompile Include="t_player.cpp" />

@@ -13,7 +13,7 @@
 class CEffBomb :public CBillboard
 {
 public:
-	CEffBomb(int nPriority = 5);				//コンストラクタ
+	CEffBomb(int nPriority = 4);				//コンストラクタ
 	~CEffBomb()override;		//デストラクタ
 	void Init()override;		//初期化
 	void Uninit()override;		//終了

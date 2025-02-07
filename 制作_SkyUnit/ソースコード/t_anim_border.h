@@ -14,7 +14,7 @@
 class CTAnimBorder :public CObject2D
 {
 public:
-	CTAnimBorder(int nPriority = SET_PRIORITY - 2);		//コンストラクタ
+	CTAnimBorder(int nPriority = SET_PRIORITY - 3);		//コンストラクタ
 	~CTAnimBorder()override;				//デストラクタ
 	void Init()override;		//初期化
 	void Uninit()override;		//終了

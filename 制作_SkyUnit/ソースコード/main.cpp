@@ -16,6 +16,9 @@
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void ToggleFullscreen(HWND hWnd);// ウィンドウをフルスクリーンにする方法
 
+
+
+
 //グローバル変数
 bool g_bExit = false;
 bool g_isFullscreen = false;// ウィンドウを切り替えるためのフラグ

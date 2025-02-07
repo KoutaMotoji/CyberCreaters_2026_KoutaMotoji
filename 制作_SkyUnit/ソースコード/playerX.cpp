@@ -20,12 +20,18 @@
 #include "game.h"
 #include "collision.h"
 
+namespace
+{
+	float Damage_Ratio = 0.2f;
+};
 
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
 CPlayerX::CPlayerX():m_nLife(1000),m_fWeaponRadius(25), 
-					m_bMotion(false), m_SecZrot(0.8f), m_bTransformed(false), m_bDamaged(false), m_DamageTime(0), m_bBlend(false), m_bAttack(false)
+					m_bMotion(false), m_SecZrot(0.8f), 
+					m_bTransformed(false), m_bDamaged(false),
+					m_DamageTime(0), m_bBlend(false), m_bAttack(false)
 {
 	for (int i = 0; i < MAX_MODELPARTS; ++i)
 	{
@@ -52,8 +58,7 @@ void CPlayerX::Init()
 	CObject::SetType(TYPE_3D_PLAYER);
 	m_pShadow = CShadow::Create({ 0.0f,0.0f,0.0f });
 	CGaugeLife::Create(MAX_LIFE);
-	CMainUI::Create();
-	CMainBlock::Create();
+	m_pMainUI = CMainUI::Create();
 }
 
 //==========================================================================================
@@ -127,16 +132,18 @@ void CPlayerX::Update()
 	m_pReticle->SetPos({ m_pReticle->GetPos().x,m_pReticle->GetPos().y,m_pos.z + 500 });
 
 	m_pos += m_move;
+	if (PushRSholder())
+	{
+		m_pos -= {m_move.x, m_move.y, 0.0f};
+	}
 	//移動量を更新
-	m_move.x += (0.0f - m_move.x) * 0.17f;
-	m_move.y += (0.0f - m_move.y) * 0.17f;
+	m_move.x += (0.0f - m_move.x) * 0.14f;
+	m_move.y += (0.0f - m_move.y) * 0.14f;
 	m_move.z += (0.0f - m_move.z) * 0.17f;
 
 	CameraPos = CameraPosDigit();
 
 	CManager::GetInstance()->GetCamera()->SetPlayerPos(CameraPos);
-
-	//GoalCheck();
 }
 
 void CPlayerX::SetDamageState()
@@ -145,11 +152,10 @@ void CPlayerX::SetDamageState()
 	{
 		m_bDamaged = true;
 		CManager::GetInstance()->GetCamera()->SetShake(20, 40);
-		DamageAdd(1000 * 0.125);
+		DamageAdd(1000 * Damage_Ratio);
 		m_DamageTime = 0;
 	}
 }
-
 
 //==========================================================================================
 //描画処理
@@ -185,6 +191,7 @@ void CPlayerX::Draw()
 	D3DXMatrixMultiply(&m_mtxWorld,
 		&m_mtxWorld,
 		&mtxSize);
+
 	//向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot,
 		m_rot.y,
@@ -196,6 +203,7 @@ void CPlayerX::Draw()
 	D3DXMatrixMultiply(&m_mtxWorld,
 		&m_mtxWorld,
 		&mtxRot);
+
 	//位置を反映
 	D3DXMatrixTranslation(&mtxTrans,
 		m_pos.x,
@@ -204,6 +212,7 @@ void CPlayerX::Draw()
 	D3DXMatrixMultiply(&m_mtxWorld,
 		&m_mtxWorld,
 		&mtxTrans);
+
 	//ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD,
 		&m_mtxWorld);
@@ -229,7 +238,6 @@ CPlayerX* CPlayerX::Create(D3DXVECTOR3 pos)
 	CPlayerX* player = new CPlayerX;
 	player->Init();
 
-
 	player->m_pos = pos;
 	player->m_move = { 0.0f,0.0f,0.0f };
 	player->m_rot = { 0.0f,D3DX_PI,0.0f };
@@ -245,28 +253,26 @@ bool CPlayerX::PMove(float fCamRotZ)
 {
 	if (!m_bTransformed)
 	{
-		m_move += {CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().x* MOVE_JET_SPEED, CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().y* MOVE_JET_SPEED, 0.0f};
+		m_move += {CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().x * MOVE_JET_SPEED, CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().y * MOVE_JET_SPEED, 0.0f};
+		m_vecAxis = { m_move.y,0.0f,m_move.x };
 	}
 	else
 	{
 		m_move += {CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().x * MOVE_ROBO_SPEED, CManager::GetInstance()->GetJoypad()->GetJoyStickVecL().y * MOVE_ROBO_SPEED, 0.0f};
-	}
-	if (CManager::GetInstance()->GetJoypad()->GetJoyStickVecL() > 0)
-	{
 		m_vecAxis = { m_move.y,m_move.x,0.0f };
-		D3DXVec3Normalize(&m_vecAxis, &m_vecAxis);
-
-		m_fValueRot = (2 * sqrtf((m_move.x * m_move.x) + (m_move.y* m_move.y)) * 10) / (120 * D3DX_PI);
-
-		m_pReticle->SetPos({ m_pos.x + m_move.x * RETICLE_VALUE,m_pos.y + m_move.y * RETICLE_VALUE, m_pos.z + 500 });
 	}
+
+	D3DXVec3Normalize(&m_vecAxis, &m_vecAxis);
+
+	m_fValueRot = (2 * sqrtf((m_move.x * m_move.x) + (m_move.y * m_move.y)) * 10) / (120 * D3DX_PI);
+	m_pReticle->SetPos({ m_pos.x + m_move.x * RETICLE_VALUE,m_pos.y + m_move.y * RETICLE_VALUE, m_pos.z + 500 });
 
 	return true;
 }
 
 
 //==========================================================================================
-//床当たり判定
+// プレイヤーの移動制限判定
 //==========================================================================================
 void CPlayerX::FloorCollision()
 {
@@ -440,10 +446,9 @@ void CPlayerX::SetNextKey()
 					m_CurMotion == MOTION_ROBO_SHOT || 
 					m_CurMotion == MOTION_ROBO_SLASH)
 				{
-					if (m_CurMotion == MOTION_TRANS_ROBO_TO_JET)
-					{
-						CMainBlock::Create();
-					}
+					
+					m_pMainUI->ChangeUI((int)m_bTransformed);
+					
 					--m_CurKey;
 					m_bMotion = false;
 				}
@@ -1237,4 +1242,19 @@ void CPlayerX::DamageAdd(int nDmg)
 	DeadCheck(); 
 	CManager::GetInstance()->GetSound()->PlaySound(CSound::SOUND_LABEL_GAMESE_EXPLOAD); 
 	CEffBomb::Create(m_pos); 
-}	
+}
+
+//==========================================================================================
+// 移動固定モード確認
+//==========================================================================================
+bool CPlayerX::PushRSholder()
+{
+	if (!m_bTransformed)
+	{
+		if (CManager::GetInstance()->GetJoypad()->GetRepeat(CJoypad::JOYPAD_RIGHT_TRIGGER) == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}

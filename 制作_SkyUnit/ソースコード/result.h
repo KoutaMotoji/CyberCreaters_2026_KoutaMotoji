@@ -10,6 +10,7 @@
 #include "scene.h"
 #include "object2D.h"
 #include "score.h"
+#include "go_UI.h"
 
 class CResult : public CScene
 {
@@ -22,6 +23,8 @@ public:
 	void Draw()override;
 private:
 	CScore* m_pScore;
+	CGameOverUI* m_pGOUI;
+	bool m_bSelect;
 };
 
 class CResultBG :public CObject2D

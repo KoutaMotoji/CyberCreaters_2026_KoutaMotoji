@@ -14,7 +14,7 @@
 //==========================================================================================
 CLockonEnemy::CLockonEnemy()
 {
-	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\reticle002.png");
+	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\reticle004.png");
 	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx));
 
 }

@@ -22,6 +22,7 @@ public:
 	void Update()override;		//XV
 	void Draw()override;		//•`‰æ
 	static CEnemyBase* Create(D3DXVECTOR3 pos);
+	static CEnemyBase* Create(D3DXVECTOR3 pos,float size);
 
 	void Damaged();
 	void LockOned() 

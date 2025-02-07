@@ -110,6 +110,20 @@ CEnemyBase* CEnemyBase::Create(D3DXVECTOR3 pos)
 	return enemy;
 }
 
+//==========================================================================================
+//生成処理(チュートリアル用)
+//==========================================================================================
+CEnemyBase* CEnemyBase::Create(D3DXVECTOR3 pos,float size)
+{
+	CEnemyBase* enemy = new CEnemyBase;
+
+	enemy->BindModel("data\\MODEL\\target.x");
+	enemy->SetModelParam(pos);
+	enemy->Init();
+	enemy->SetSize({ size ,size ,size });
+	return enemy;
+}
+
 void CEnemyBase::Damaged()
 {
 	CEffExplosion::Create(CObjectX::GetPos(), 300.0f);
@@ -130,4 +144,3 @@ void CEnemyBase::Damaged()
 	Release();
 	return;
 }
-

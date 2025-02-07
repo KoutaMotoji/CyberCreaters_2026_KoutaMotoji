@@ -145,13 +145,16 @@ CGaugeLiBack* CGaugeLiBack::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 	return gauge;
 }
 
+
 //==========================================================================================
 //ƒƒCƒ“UI‚Ì‰Šú‰»ˆ—
 //==========================================================================================
 void CMainUI::Init()
 {
-	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\mainUI_A.png");
-	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx), 1, 1);
+	m_TexIdx[0] = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\mainUI_B.png");
+	m_TexIdx[1] = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\mainUI_A.png");
+
+	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(m_TexIdx[0]), 1, 1);
 
 	CObject::SetType(TYPE_2D_UI);
 	CObject2D::Init();
@@ -170,39 +173,9 @@ CMainUI* CMainUI::Create()
 }
 
 //==========================================================================================
-//UŒ‚•s‰ÂUI‚Ì‰Šú‰»ˆ—
+//ƒƒCƒ“UI‚ÌØ‚è‘Ö‚¦ˆ—
 //==========================================================================================
-void CMainBlock::Init()
+void CMainUI::ChangeUI(int playermode)
 {
-	int nIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\mainBlock.png");
-	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(nIdx), 1, 1);
-
-	CObject::SetType(TYPE_2D_UI);
-	CObject2D::Init();
-}
-
-//==========================================================================================
-//UŒ‚•s‰ÂUI‚Ì‰Šú‰»ˆ—
-//==========================================================================================
-void CMainBlock::Update()
-{
-	if (CManager::GetInstance()->GetJoypad()->GetTrigger(CJoypad::JOYPAD_X) == true)
-	{
-		CObject::Release();
-		return;
-	}
-	CObject2D::Update();
-}
-
-
-//==========================================================================================
-//UŒ‚•s‰ÂUI‚Ì¶¬ˆ—
-//==========================================================================================
-CMainBlock* CMainBlock::Create()
-{
-	using namespace MainUIState;
-	CMainBlock* UI = new CMainBlock;
-	UI->SetPolygonParam(UIpos, SCREEN_HEIGHT, SCREEN_WIDTH);
-	UI->Init();
-	return UI;
+	BindTexture(CManager::GetInstance()->GetTexture()->GetAddress(m_TexIdx[playermode]), 1, 1);
 }

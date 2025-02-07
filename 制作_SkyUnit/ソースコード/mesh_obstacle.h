@@ -10,7 +10,7 @@
 #include "main.h"
 #include "objectX.h"
 
-static constexpr int MAX_MODELTYPE = 10;
+static constexpr int MAX_MODELTYPE = 12;
 static constexpr float BOSS_EMITTE_DIS = 6000.0f;
 static constexpr float ENEMY_EMITTE_DIS = 10000.0f;
 

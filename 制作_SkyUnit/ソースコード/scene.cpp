@@ -10,6 +10,7 @@
 #include "map_edit.h"
 #include "object.h"
 #include "game.h"
+#include "tutorial.h"
 #include "title.h"
 #include "result.h"
 #include "gameover.h"
@@ -46,6 +47,7 @@ HRESULT CScene::Init()
 //==========================================================================================
 void CScene::Uninit()
 {
+	CManager::GetInstance()->GetSound()->StopSound();
 	CObject::ReleaseAll();
 }
 
@@ -75,6 +77,11 @@ CScene* CScene::Create(CScene::MODE mode)
 	{
 	case MODE_TITLE:
 		scene = new CTitle();
+		scene->m_mode = mode;
+		return scene;
+		break;
+	case MODE_TUTORIAL:
+		scene = new CTutorial();
 		scene->m_mode = mode;
 		return scene;
 		break;

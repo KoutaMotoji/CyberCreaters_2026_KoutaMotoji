@@ -13,7 +13,7 @@ const int CObject2D::MAX_POLYGON = 2;
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
-CObject2D::CObject2D(int nPriority):CObject(nPriority), m_fWidth(0), m_fHeight(0),m_AnimU(0),m_AnimV(0),m_fZoom(0),m_GaugeAnim(0.0f,0.0f)
+CObject2D::CObject2D(int nPriority):CObject(nPriority), m_fWidth(0), m_fHeight(0),m_AnimU(0),m_AnimV(0),m_fZoom(1),m_GaugeAnim(0.0f,0.0f)
 {
 	m_pVtxBuffObject2D = nullptr;
 	m_pTextureObject2D = nullptr;
@@ -49,17 +49,17 @@ void CObject2D::Init()
 	//頂点座標の設定
 	
 		//頂点座標の設定
-	pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[0].pos.z = 0.0f;
-	pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[1].pos.z = 0.0f;
-	pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[2].pos.z = 0.0f;
-	pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[3].pos.z = 0.0f;
 
 	//rhwの設定
@@ -208,6 +208,7 @@ void CObject2D::SetPolygonParam(D3DXVECTOR3 pos, float fHeight, float fWidth, in
 void CObject2D::BindTexture(LPDIRECT3DTEXTURE9 pTex, int AnimU, int AnimV)
 {
 	m_pTextureObject2D = pTex;
+	
 	m_TexSliceU = AnimU;
 	m_TexSliceV = AnimV;
 }
@@ -257,7 +258,7 @@ void CObject2D::AddRot(D3DXVECTOR3 rot)
 //==========================================================================================
 float CObject2D::GetSize()
 {
-	return m_fLength + m_fZoom;
+	return m_fLength * m_fZoom;
 }
 
 //==========================================================================================
@@ -265,7 +266,7 @@ float CObject2D::GetSize()
 //==========================================================================================
 void CObject2D::SetZoom(float Zoom)
 {
-	m_fZoom += Zoom;
+	m_fZoom = Zoom;
 }
 
 //==========================================================================================
@@ -324,18 +325,18 @@ void CObject2D::UpdateNormal()
 	m_pVtxBuffObject2D->Lock(0, 0, (void**)&pVtx, 0);
 	//頂点座標の設定
 
-	//頂点座標の設定
-	pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+		//頂点座標の設定
+	pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[0].pos.z = 0.0f;
-	pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[1].pos.z = 0.0f;
-	pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[2].pos.z = 0.0f;
-	pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[3].pos.z = 0.0f;
 
 	//頂点カラーの設定
@@ -373,19 +374,19 @@ void CObject2D::UpdateGaugeLeft()
 	//頂点バッファをロックして、頂点情報へのポインタを取得
 	m_pVtxBuffObject2D->Lock(0, 0, (void**)&pVtx, 0);
 	//頂点座標の設定
-	
+
 	//頂点座標の設定
-	pVtx[0].pos.x = SetPos + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[0].pos.x = SetPos + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[0].pos.z = 0.0f;
-	pVtx[1].pos.x = SetPos + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[1].pos.x = SetPos + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[1].pos.z = 0.0f;
-	pVtx[2].pos.x = SetPos + sinf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[2].pos.x = SetPos + sinf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[2].pos.z = 0.0f;
-	pVtx[3].pos.x = SetPos + sinf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[3].pos.x = SetPos + sinf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[3].pos.z = 0.0f;
 
 	//頂点カラーの設定
@@ -425,17 +426,17 @@ void CObject2D::UpdateGaugeRight()
 	//頂点座標の設定
 
 	//頂点座標の設定
-	pVtx[0].pos.x = SetPos + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[0].pos.x = SetPos + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[0].pos.z = 0.0f;
-	pVtx[1].pos.x = SetPos + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
-	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength + m_fZoom);
+	pVtx[1].pos.x = SetPos + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
+	pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * (m_fLength * m_fZoom);
 	pVtx[1].pos.z = 0.0f;
-	pVtx[2].pos.x = SetPos + sinf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[2].pos.x = SetPos + sinf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[2].pos.z = 0.0f;
-	pVtx[3].pos.x = SetPos + sinf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
-	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength + m_fZoom);
+	pVtx[3].pos.x = SetPos + sinf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
+	pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * (m_fLength * m_fZoom);
 	pVtx[3].pos.z = 0.0f;
 
 	//頂点カラーの設定

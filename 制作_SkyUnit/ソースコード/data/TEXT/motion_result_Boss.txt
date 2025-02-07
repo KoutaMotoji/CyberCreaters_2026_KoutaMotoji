@@ -1,0 +1,200 @@
+#==============================================================================
+#
+# 『モーションビューワ』スクリプトファイル [motion.txt]
+# Author : AKIRA TANAKA
+#
+#==============================================================================
+SCRIPT			# この行は絶対消さないこと！
+
+#------------------------------------------------------------------------------
+# モデル数
+#------------------------------------------------------------------------------
+NUM_MODEL = 21
+
+#------------------------------------------------------------------------------
+# モデルファイル名
+#------------------------------------------------------------------------------
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/00_body_D.x		# [0]腰
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/01_body_U.x		# [1]胴体
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/02_head.x		# [2]頭
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/03_arm_UR.x		# [3]右上腕
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/04_arm_DR.x		# [4]右腕
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/05_hand_R.x		# [5]右手
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/06_arm_UL.x		# [6]左上腕
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/07_arm_DL.x		# [7]左腕
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/08_hand_L.x		# [8]左手
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/09_leg_UR.x		# [9]右腿
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/10_leg_DR.x		# [10]右脛
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/11_foot_R.x		# [11]右足
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/12_leg_UL.x		# [12]左腿
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/13_leg_DL.x		# [13]左脛
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/14_foot_L.x		# [14]左足
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/15_canon_R.x	# [15]右腰キャノン
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/16_canon_L.x	# [16]左腰キャノン
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/17_shiphead.x	# [17]戦艦頭
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/18_canon_B.x	# [18]後ろキャノン
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/19_rifle_R.x	# [19]右ライフル
+MODEL_FILENAME = data/MODEL/_BOSS_TERRA/20_rifle_L.x	# [20]左ライフル
+
+#------------------------------------------------------------------------------
+# キャラクター情報
+#------------------------------------------------------------------------------
+CHARACTERSET
+	NUM_PARTS = 21					# パーツ数
+	MOVE = 1.0						# 移動量
+	JUMP = 10.25					# ジャンプ量
+
+	PARTSSET
+		INDEX = 0					# 腰
+		PARENT = -1					# (親)NULL
+		POS = 0.0 250.0 0.0
+		ROT = 1.54 0.00 0.00
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 1					# 胴体
+		PARENT = 0					# (親)腰
+		POS = 0.0 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 2					# 頭
+		PARENT = 1					# (親)胴体
+		POS = 0.0 410.0 0.0
+		ROT = 0.57 -1.01 0.00
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 3					# 右上腕
+		PARENT = 1					# (親)胴体
+		POS = 246.75 329.0 0.0
+		ROT = 1.51 0.00 0.00
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 4					# 右腕
+		PARENT = 3					# (親)右上腕
+		POS = 246.75 0.0 0.0
+		ROT = 0.00 1.67 0.00
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 5					# 右手
+		PARENT = 4					# (親)右腕
+		POS = 386.75 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 6					# 左上腕
+		PARENT = 1					# (親)胴体
+		POS = -246.75 329.0 0.0
+		ROT = 1.23 -0.03 -0.00
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 7					# 左腕
+		PARENT = 6					# (親)左上腕
+		POS = -246.75 0.0 0.0
+		ROT = 0.00 0.25 0.16
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 8					# 左手
+		PARENT = 7					# (親)左腕
+		POS = -386.75 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 9					# 右腿
+		PARENT = 0					# (親)腰
+		POS = 106.75 -82.25 0.0
+		ROT = 0.31 -0.35 0.31
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 10					# 右脛
+		PARENT = 9					# (親)右腿
+		POS = 0.0 -452.375 0.0
+		ROT = -0.57 0.00 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 11					# 右足
+		PARENT = 10					# (親)右脛
+		POS = 0.0 -534.625 0.0
+		ROT = -0.82 0.00 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 12					# 左腿
+		PARENT = 0					# (親)腰
+		POS = -106.75 -82.25 0.0
+		ROT = 0.79 0.44 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 13					# 左脛
+		PARENT = 12					# (親)左腿
+		POS = 0.0 -452.375 0.0
+		ROT = -1.88 0.00 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 14					# 左足
+		PARENT = 13					# (親)左脛
+		POS = 0.0 -534.625 0.0
+		ROT = -0.47 0.00 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 15					# 右腰キャノン
+		PARENT = 9					# (親)右腿
+		POS = 140.0 0.0 0.0
+			ROT = -0.03 0.75 -0.66
+	END_PARTSSET
+	
+		PARTSSET
+		INDEX = 16					# 左腰キャノン
+		PARENT = 12					# (親)左腿
+		POS = -140.0 0.0 0.0
+		ROT = -0.38 -0.38 0.63
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 17					# 艦頭
+		PARENT = 1					# (親)胴体
+		POS = 0.0 370.125 57.75
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 18					# 背中キャノン
+		PARENT = 1					# (親)胴体
+		POS = 0.0 370.125 57.75
+		ROT = -0.22 0.00 0.00
+	END_PARTSSET
+	
+	PARTSSET
+		INDEX = 19					# ライフル
+		PARENT = 5					# (親)右手
+		POS = -24.5 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+	PARTSSET
+		INDEX = 20					# ライフル
+		PARENT = 8					# (親)左手
+		POS = 24.5 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+	
+END_CHARACTERSET
+
+#------------------------------------------------------------------------------
+# モーション情報
+#------------------------------------------------------------------------------
+
+
+END_SCRIPT		# この行は絶対消さないこと！

@@ -1,9 +1,10 @@
 //===============================================================================
 //
-//  C++使った3D(map_edit.cpp)
+//  マップオブジェクト配置シーン(map_edit.cpp)
 //								制作：元地弘汰
 // 
 //===============================================================================
+#include "inicpp.h"
 
 #include "manager.h"
 #include "fade.h"
@@ -42,8 +43,9 @@ namespace
 //==========================================================================================
 //コンストラクタ
 //==========================================================================================
-CMapEdit::CMapEdit():m_MaxObj(0),MOVE_SCALE(20.0f), m_CamDis(3000.0f), m_SaveDis(3000.0f)
+CMapEdit::CMapEdit() :m_MaxObj(0), MOVE_SCALE(20.0f), m_CamDis(3000.0f), m_SaveDis(3000.0f),LoadFilename({})
 {
+	//マップオブジェクトの初期化
 	for (int i = 0; i < MAX_EDITOBJ; ++i)
 	{
 		ObjInfo[i].pos = { 0.0f,0.0f,0.0f };
@@ -52,6 +54,7 @@ CMapEdit::CMapEdit():m_MaxObj(0),MOVE_SCALE(20.0f), m_CamDis(3000.0f), m_SaveDis
 		ObjInfo[i].SelType = 0;
 	}
 	m_SelectObject = nullptr;
+
 }
 
 //==========================================================================================
@@ -69,6 +72,24 @@ HRESULT CMapEdit::Init()
 {
 	CScene::Init();
 	InitFont();
+	ini::IniFile myIni;
+
+	std::string MapData;
+	std::string filename = "data\\TEXT\\Config.ini";
+
+	//INIファイルを読み込む
+	myIni.load(filename);
+
+	std::string temp3 = myIni["LoadMap"]["MapTextName"].as<std::string>();
+	if (!temp3.empty())
+	{
+		MapData = temp3;
+	}
+	else
+	{
+		assert(temp3.empty());
+	}
+	LoadFilename = MapData;
 	LoadFile();
 	CManager::GetInstance()->GetCamera()->SetCameraDistance(m_CamDis);
 
@@ -96,10 +117,6 @@ void CMapEdit::Uninit()
 	if (m_SelectObject != nullptr)
 	{
 		m_SelectObject->Release();
-	}
-	if (m_LastObj != nullptr)
-	{
-		m_LastObj->Release();
 	}
 	if (m_Gizmo != nullptr)
 	{
@@ -192,7 +209,7 @@ void CMapEdit::EditObj()
 void CMapEdit::SaveFile()
 {
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data002.txt", "w");
+	pFile = fopen(LoadFilename.c_str(), "w");
 	if (pFile != nullptr)
 	{
 		fprintf(pFile, "%d\n", m_MaxObj);
@@ -222,7 +239,7 @@ void CMapEdit::SaveFile()
 void CMapEdit::LoadFile()
 {
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data002.txt", "r");
+	pFile = fopen(LoadFilename.c_str(), "r");
 	if (pFile != nullptr)
 	{
 		int nGetCnt = 0;
@@ -546,6 +563,24 @@ void CMapEdit::DrawFont()
 //==========================================================================================
 void CMapEdit::SetLoadMap()
 {
+	ini::IniFile myIni;
+
+	std::string MapData;
+	std::string filename = "data\\TEXT\\Config.ini";
+
+	//INIファイルを読み込む
+	myIni.load(filename);
+
+	std::string temp3 = myIni["LoadMap"]["MapTextName"].as<std::string>();
+	if (!temp3.empty())
+	{
+		MapData = temp3;
+	}
+	else
+	{
+		assert(temp3.empty());
+	}
+
 	typedef struct
 	{
 		D3DXVECTOR3 pos;
@@ -556,7 +591,7 @@ void CMapEdit::SetLoadMap()
 	SetInfo ObjInfo[1024] = {};
 	int MaxObj = 0;
 	FILE* pFile;
-	pFile = fopen("data\\TEXT\\Data002.txt", "r");
+	pFile = fopen(MapData.c_str(), "r");
 
 	if (pFile != nullptr)
 	{

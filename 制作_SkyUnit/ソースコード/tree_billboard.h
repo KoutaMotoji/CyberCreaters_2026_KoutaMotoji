@@ -1,6 +1,6 @@
 //===============================================================================
 // 
-//  C++使った3D(tree_billboard.h)
+//  背景用木ビルボード処理(tree_billboard.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -25,7 +25,7 @@ public:
 	void Init()override;				//初期化
 	void Uninit()override;				//終了
 	void Update()override;				//更新
-	void Draw()override { CBillboard::Draw(); };		//描画
+	void Draw()override;		//描画
 
 	static CTreeBillboard* Create(D3DXVECTOR3 pos,int TexIdx);
 	void SetPosGround(float HalfRadius);

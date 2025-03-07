@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(watermelon.cpp)
+//  3Dパーティクル処理(particle3D.cpp)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -70,12 +70,13 @@ void CParticle3D::Update()
 //==========================================================================================
 void CParticle3D::Draw()
 {
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();;
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	//加算合成の設定
 	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+
 	//アルファテスト設定
 	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ALPHAREF, 0);

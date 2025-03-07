@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(score.h)
+//		スコア管理クラス(score.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -28,10 +28,10 @@ public:
 	static CScore* Create();
 	static CScore* Create(D3DXVECTOR3 pos);
 
-	void LoadLastScore() { m_Score = SaveScore; GetLastNum(); }
-	void ResetScore() { m_Score += 0; GetLastNum(); SaveScore = m_Score;};
-	void SetScore(int nScore) { m_Score = nScore; GetLastNum(); SaveScore = m_Score; }
-	void AddScore(int nScore) { m_Score += nScore; GetLastNum(); SaveScore = m_Score;}
+	inline void LoadLastScore() { m_Score = SaveScore; GetLastNum(); }
+	inline void ResetScore() { m_Score += 0; GetLastNum(); SaveScore = m_Score;};
+	inline void SetScore(int nScore) { m_Score = nScore; GetLastNum(); SaveScore = m_Score; }
+	inline void AddScore(int nScore) { m_Score += nScore; GetLastNum(); SaveScore = m_Score;}
 private:
 	void GetLastNum();
 	int m_Score;

@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(billboard.h)
+//  ビルボード基底クラス(billboard.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -21,18 +21,18 @@ public:
 	void Draw()override;		//描画
 
 
-	D3DXVECTOR3 GetPos() { return m_pos; ; };
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; };
-	void AddPos(D3DXVECTOR3 value) { m_pos += value; };
-	D3DXVECTOR3 GetRot() { return m_pos; ; };
-	void SetRot(D3DXVECTOR3 value) { m_rot = value; }; 
-	void AddRot(D3DXVECTOR3 value) { m_rot += value; };
-	D3DXVECTOR2 GetAnim() { return m_Anim; };
-	void SetAnim(D3DXVECTOR2 Anim) { m_Anim = Anim; };
-	void AddAnim(D3DXVECTOR2 Anim) { m_Anim += Anim; };
-	D3DXVECTOR3 GetScale() { return m_scale; };								//大きさを取得
-	void SetScale(float scale) { m_scale = { scale,scale,0.0f }; };			//大きさ変更
-	void AddScale(float scale) { m_scale += { scale, scale,0.0f }; };		//大きさを加算
+	inline D3DXVECTOR3 GetPos() { return m_pos; ; };
+	inline void SetPos(D3DXVECTOR3 pos) { m_pos = pos; };
+	inline void AddPos(D3DXVECTOR3 value) { m_pos += value; };
+	inline D3DXVECTOR3 GetRot() { return m_pos; ; };
+	inline void SetRot(D3DXVECTOR3 value) { m_rot = value; }; 
+	inline void AddRot(D3DXVECTOR3 value) { m_rot += value; };
+	inline D3DXVECTOR2 GetAnim() { return m_Anim; };
+	inline void SetAnim(D3DXVECTOR2 Anim) { m_Anim = Anim; };
+	inline void AddAnim(D3DXVECTOR2 Anim) { m_Anim += Anim; };
+	inline D3DXVECTOR3 GetScale() { return m_scale; };								//大きさを取得
+	inline void SetScale(float scale) { m_scale = { scale,scale,0.0f }; };			//大きさ変更
+	inline void AddScale(float scale) { m_scale += { scale, scale,0.0f }; };		//大きさを加算
 	static CBillboard* Create(D3DXVECTOR3 pos);
 	void SetPolygonParam(D3DXVECTOR3 pos, float fHeight, float fWidth);					//初期設定
 	void SetPolygonParam(D3DXVECTOR3 pos, float fHeight, float fWidth, D3DXCOLOR col);	//初期設定(色変更オーバーロード)
@@ -41,7 +41,7 @@ public:
 	void BindTexture(LPDIRECT3DTEXTURE9 pTex);						//作ったテクスチャ 
 	void BindTexture(LPDIRECT3DTEXTURE9 pTex,D3DXVECTOR2 Slice);	//作ったテクスチャ(アニメーション用オーバーロード) 
 	
-	void SetGauge(int nValue) { m_nNowValue = nValue; }				//ゲージの数値変更
+	inline void SetGauge(int nValue) { m_nNowValue = nValue; }				//ゲージの数値変更
 private:
 	float CalcGaugeValue();
 	void UpdateNormal();

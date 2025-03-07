@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(map_edit.h)
+//  マップオブジェクト配置シーン(map_edit.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -37,38 +37,39 @@ public:
 	void Draw()override;
 	void LoadFile();	//ファイルから読み込んで配置(一括)
 
-	D3DXVECTOR3 GetThisPos() { return m_thisPos; };
-	static void SetLoadMap();
+	inline D3DXVECTOR3 GetThisPos() { return m_thisPos; }
+	static void SetLoadMap();		//外部からマップを読み込む用関数
 private:
-	void SaveFile();	//配置情報を保存
-	void EditObj();		//オブジェクトを配置
-	void SelectObjType();
-	void SelectObject();
-	void SetObject();	//Enterを押した時のオブジェクト生成
+	void SaveFile();		//配置情報を保存
+	void EditObj();			//オブジェクトを配置
+	void SelectObjType();	//設置オブジェクトの種類の選択
+	void SelectObject();	//選択されたオブジェクトの種類に変える処理
+	void SetObject();		//Enterを押した時のオブジェクト生成
 
-	void SetEditPos();
-	void SetEditRot();
-	void SetEditScale();
+	void SetEditPos();		//設置オブジェクトの座標を変える処理
+	void SetEditRot();		//設置オブジェクトの回転を変える処理
+	void SetEditScale();	//設置オブジェクトのスケールを変える処理
 
 	CObjectX* m_SelectObject;
-	CObjectX* m_LastObj;
 	const float MOVE_SCALE;
 	float m_CamDis,m_SaveDis;
 
-	D3DXVECTOR3 m_thisPos,m_thisRot,m_thisScale;
-	int m_thisType;
+	D3DXVECTOR3 m_thisPos,m_thisRot,m_thisScale;	//設置プレビューオブジェクト用要素
+	int m_thisType;									//設置オブジェクトの種類用
 	int m_MaxObj;
 	SetInfo ObjInfo[MAX_EDITOBJ];
 
 	//デバッグ表示用フォント
-	LPD3DXFONT m_pFont;
-	void InitFont();
-	void UninitFont();
-	void DrawFont();
+	LPD3DXFONT m_pFont;		//フォントのポインタ
+	void InitFont();		//フォント初期化用関数
+	void UninitFont();		//フォント破棄
+	void DrawFont();		//フォント描画
 
 	CGizmo* m_Gizmo;
+	std::string LoadFilename;
 };
 
+//回転後の移動方向を分かりやすくするためのギズモ
 class CGizmo : public CObjectX
 {
 public:
@@ -77,7 +78,7 @@ public:
 	void Draw()override;
 	static CGizmo* Create(D3DXVECTOR3 pos);
 	bool m_bdraw;
-
+private:
 };
 
 #endif

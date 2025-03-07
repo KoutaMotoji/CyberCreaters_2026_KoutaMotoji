@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  3Dゲーム基礎(Block.h)
+//  カメラ処理(Block.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -19,25 +19,25 @@ public:
 	void Uninit();
 	void Update();
 	void SetCamera();
-	void SetCameraDistance(float distance) { m_camDistance = distance; };
-	void AddCameraDistance(float dis) { m_camDistance = dis; };
+	inline void SetCameraDistance(float distance) { m_camDistance = distance; };
+	inline void AddCameraDistance(float dis) { m_camDistance = dis; };
 
-	float GetCameraDistance() { return m_camDistance; };
+	inline float GetCameraDistance() { return m_camDistance; };
 	D3DXVECTOR3& GetPlayerPos();
 	void SetPlayerPos(D3DXVECTOR3 pos);
 	float GetRotZ();
 
 
 	void SetFreeCam(D3DXVECTOR3 destPosV, D3DXVECTOR3 destPosR, int Frame);
-	void DefuseFreeCam() { m_bFreeCam = false; }
-	void SetRotz(float rot) { m_fRotZ = rot; };
-	void AddRotz(float rot) { m_fRotZ += rot; };
+	inline void DefuseFreeCam() { m_bFreeCam = false; }
+	inline void SetRotz(float rot) { m_fRotZ = rot; };
+	inline void AddRotz(float rot) { m_fRotZ += rot; };
 
-	void SetCameraHeigjt(float Height) { m_camHeight = Height; };
-	void AddCameraHeigjt(float Height) { m_camHeight += Height; };
+	inline void SetCameraHeigjt(float Height) { m_camHeight = Height; };
+	inline void AddCameraHeigjt(float Height) { m_camHeight += Height; };
 
 	void SetShake(int nFlame, float fShake);
-	void SetCamPos(D3DXVECTOR3 PosV, D3DXVECTOR3 PosR) { m_posV = PosV; m_posR = PosR; }	//視点 / 注視点の設定
+	inline void SetCamPos(D3DXVECTOR3 PosV, D3DXVECTOR3 PosR) { m_posV = PosV; m_posR = PosR; }	//視点 / 注視点の設定
 	void SetCamDefault() {
 		m_posV = D3DXVECTOR3(0.0f, 100.0f, -300.0f);
 		m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);

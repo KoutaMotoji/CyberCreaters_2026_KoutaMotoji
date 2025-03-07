@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(object2D.h)
+//  2Dオブジェクト基底クラス(object2D.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -19,25 +19,26 @@ public:
 		TYPE_GAUGE,
 		TYPE_MAX,
 	}TYPE_2D;
+
 	CObject2D(int nPriority = 3);						//コンストラクタ
 	~CObject2D()override;				//デストラクタ
 	void Init()override;		//初期化
 	void Uninit()override;		//終了
 	void Update()override;		//更新
 	void Draw()override;		//描画
-	D3DXVECTOR3 GetPos();				//座標取得
-	void AddPos(D3DXVECTOR3 pos);		//座標移動
-	void SetPos(D3DXVECTOR3 pos);		//座標変更
-	D3DXVECTOR3 GetRot();				//角度取得
-	void AddRot(D3DXVECTOR3 rot);		//角度移動
-	D3DXVECTOR2 GetAnim();				//アニメーション取得
-	void SetAnim(D3DXVECTOR2 Anim);		//アニメーション移動
-	float GetSize();					//大きさ取得
-	void SetZoom(float Zoom);			//大きさ変更
-	D3DXCOLOR GetColor() { return m_col; };			//カラーを取得
-	void SetColor(D3DXCOLOR col) { m_col = col; };	//カラーを設定
-	void SetGauge(int value);			//ゲージのサイズ変更
-	void SetGaugeAnim(D3DXVECTOR2 value);
+	inline D3DXVECTOR3 GetPos() { return m_pos; }				//座標取得
+	inline void AddPos(D3DXVECTOR3 pos) { m_pos += pos; }		//座標移動
+	inline void SetPos(D3DXVECTOR3 pos) { m_pos = pos; }		//座標変更
+	inline D3DXVECTOR3 GetRot() { return m_rot; }				//角度取得
+	inline void AddRot(D3DXVECTOR3 rot) { m_rot += rot; }		//角度移動
+	inline D3DXVECTOR2 GetAnim() { return { (float)m_AnimU,(float)m_AnimV }; }					//アニメーション取得
+	inline void SetAnim(D3DXVECTOR2 Anim) {m_AnimU = (int)Anim.x; m_AnimV = (int)Anim.y;}		//アニメーション移動
+	inline float GetSize() {return m_fLength * m_fZoom;}					//大きさ取得
+	inline void SetZoom(float Zoom) { m_fZoom = Zoom; }						//大きさ変更
+	inline D3DXCOLOR GetColor() { return m_col; }							//カラーを取得
+	inline void SetColor(D3DXCOLOR col) { m_col = col; }					//カラーを設定
+	inline void SetGauge(int value) { m_nCharge = value; }					//ゲージのサイズ変更
+	inline void SetGaugeAnim(D3DXVECTOR2 value) { m_GaugeAnim += value; }	//ゲージのテクスチャアニメーション
 	static CObject2D* Create(D3DXVECTOR3 pos);
 	void SetPolygonParam(D3DXVECTOR3 pos, float fHeight, float fWidth);					//初期設定
 	void SetPolygonParam(D3DXVECTOR3 pos, float fHeight, float fWidth,D3DXCOLOR col);	//初期設定(オーバーロード)

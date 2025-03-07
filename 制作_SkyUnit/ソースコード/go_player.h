@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(go_player.h)
+//  ゲームオーバーシーン用プレイヤー処理(go_player.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -32,7 +32,7 @@ public:
 	void Update()override;		//更新
 	void Draw()override;		//描画
 
-	void AddMove(D3DXVECTOR3 move) { m_move += move; }
+	inline void AddMove(D3DXVECTOR3 move) { m_move += move; }
 	static CGameOverPlayer* Create(D3DXVECTOR3 pos);
 
 	D3DXVECTOR3 GetPos() { return m_pos; };

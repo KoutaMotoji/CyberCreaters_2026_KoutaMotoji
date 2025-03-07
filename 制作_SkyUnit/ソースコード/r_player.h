@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(t_player.h)
+//  リザルトシーン用プレイヤー処理(t_player.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -13,9 +13,6 @@
 
 #include "manager.h"
 
-
-
-
 class CResultPlayer :public CObject
 {
 public:
@@ -26,10 +23,10 @@ public:
 	void Update()override;		//更新
 	void Draw()override;		//描画
 
-	void AddMove(D3DXVECTOR3 move) { m_move += move; }
+	inline void AddMove(D3DXVECTOR3 move) { m_move += move; }
 	static CResultPlayer* Create(D3DXVECTOR3 pos);
 
-	D3DXVECTOR3 GetPos() { return m_pos; };
+	inline D3DXVECTOR3 GetPos() { return m_pos; };
 private:
 	static constexpr int MAX_MODELPARTS = 20;
 

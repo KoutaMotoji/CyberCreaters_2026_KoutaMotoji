@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った3D(game.h)
+//  ゲームシーン(game.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -23,7 +23,7 @@ public:
 	void Update()override;
 	void Draw()override;
 
-	CScore* GetScore() { return m_Score; }
+	inline CScore* GetScore() { return m_Score; }
 private:
 	void MakeRandTree();
 

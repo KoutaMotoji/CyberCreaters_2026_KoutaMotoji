@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(eff_smoke.cpp)
+//  リザルト画面演出の煙エフェクト(eff_smoke.cpp)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -71,8 +71,17 @@ void CEffSmoke::Draw()
 	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);	//カリングを両面に
 
+	//アルファテスト設定
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	pDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
 	CBillboard::Draw();
 
+	//通常の合成に戻す設定
+	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	// 法線の自動正規化を無効に
 	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);	//カリングをもどすに

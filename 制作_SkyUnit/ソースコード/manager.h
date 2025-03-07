@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(manager.h)
+//  各管理クラスの一括管理クラス(manager.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -39,15 +39,15 @@ public:
 		}
 		return _instance;
 	}
-	CRenderer* GetRenderer() { return m_pRenderer; };
-	CKeyboard* GetKeyboard() { return m_pKeyboard; };
-	CTexture* GetTexture() { return m_pTexture; };
-	CJoypad* GetJoypad() { return m_pJoypad; };
-	CCamera* GetCamera() { return m_pCamera; };
-	CSound* GetSound() { return m_pSound; };
-	CLight* GetLight() { return m_pLight; };
-	CScene* GetScene() { return m_pScene; };
-	CFade* GetFade() { return m_pFade; };
+	inline CRenderer* GetRenderer() { return m_pRenderer; };
+	inline CKeyboard* GetKeyboard() { return m_pKeyboard; };
+	inline CTexture* GetTexture() { return m_pTexture; };
+	inline CJoypad* GetJoypad() { return m_pJoypad; };
+	inline CCamera* GetCamera() { return m_pCamera; };
+	inline CSound* GetSound() { return m_pSound; };
+	inline CLight* GetLight() { return m_pLight; };
+	inline CScene* GetScene() { return m_pScene; };
+	inline CFade* GetFade() { return m_pFade; };
 	 void SetMode(CScene::MODE mode);
 	 const int MAP_SLICE_X;
 	 const int MAP_SLICE_Y;

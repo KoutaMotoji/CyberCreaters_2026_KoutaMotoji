@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(object3D.h)
+//  Xファイルオブジェクト基底クラス(objectX.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -25,20 +25,20 @@ public:
 	void Draw(D3DXMATRIX RotMtx);	//描画(クオータニオン回転用オーバーロード)
 
 
-	D3DXVECTOR3 GetPos() { return m_pos; };				//座標取得
-	void AddPos(D3DXVECTOR3 pos) { m_pos += pos; };		//座標移動
-	void SetPos(D3DXVECTOR3 pos) { m_pos = pos; };		//座標変更
-	D3DXVECTOR3 GetRot() { return m_rot; };				//角度取得
-	void AddRot(D3DXVECTOR3 rot) { m_rot += rot; };		//角度移動
-	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; };		//角度移動
-	void AddSize(D3DXVECTOR3 size) { m_size += size; };
-	void SetSize(D3DXVECTOR3 size) { m_size = size; };
-	LPD3DXMESH GetMesh() { return m_pMesh; };			//メッシュの取得
-	D3DXVECTOR3* GetRadius() { return &m_radius; };		//モデルの半径取得
+	inline D3DXVECTOR3 GetPos() { return m_pos; };				//座標取得
+	inline void AddPos(D3DXVECTOR3 pos) { m_pos += pos; };		//座標移動
+	inline void SetPos(D3DXVECTOR3 pos) { m_pos = pos; };		//座標変更
+	inline D3DXVECTOR3 GetRot() { return m_rot; };				//角度取得
+	inline void AddRot(D3DXVECTOR3 rot) { m_rot += rot; };		//角度移動
+	inline void SetRot(D3DXVECTOR3 rot) { m_rot = rot; };		//角度移動
+	inline void AddSize(D3DXVECTOR3 size) { m_size += size; };
+	inline void SetSize(D3DXVECTOR3 size) { m_size = size; };
+	inline LPD3DXMESH GetMesh() { return m_pMesh; };			//メッシュの取得
+	inline D3DXVECTOR3* GetRadius() { return &m_radius; };		//モデルの半径取得
 
-	D3DXVECTOR3 GetModelMin() { return m_vtxMinModel; };
-	D3DXVECTOR3 GetModelMax() { return m_vtxMaxModel; };
-	D3DXMATRIX GetMatrix() { return m_mtxWorld; }
+	inline D3DXVECTOR3 GetModelMin() { return m_vtxMinModel; };
+	inline D3DXVECTOR3 GetModelMax() { return m_vtxMaxModel; };
+	inline D3DXMATRIX GetMatrix() { return m_mtxWorld; }
 	static CObjectX* Create(D3DXVECTOR3 pos);
 	void SetModelParam(D3DXVECTOR3 pos);					//初期設定
 	void BindModel(const char* apFileName);	//モデル読み込み 

@@ -249,7 +249,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "data\\TEXTURE\\Target000.png";
+    "C:\\Users\\student\\Documents\\Visual Studio 2019\\C-Remake\\Project_C++Base\\data\\TEXTURE\\Target000.png";
    }
   }
   Material {

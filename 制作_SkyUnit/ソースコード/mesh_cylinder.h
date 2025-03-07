@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(object3D.h)
+//  メッシュシリンダーの処理(object3D.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -21,8 +21,8 @@ public:
 	void Draw()override;		//描画
 	static CMeshCylinder* Create(D3DXVECTOR3 pos);
 
-	LPD3DXMESH GetMesh() { return m_pMesh; };
-	D3DXVECTOR3 GetPos() { return m_pos; }
+	inline LPD3DXMESH GetMesh() { return m_pMesh; };
+	inline D3DXVECTOR3 GetPos() { return m_pos; }
 private:
 	
 	D3DXVECTOR3 m_pos, m_rot;

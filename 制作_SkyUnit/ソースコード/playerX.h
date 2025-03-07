@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(playerX.h)
+//  プレイヤー処理(playerX.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -34,10 +34,10 @@ public:
 
 	bool PMove(float fCamRotZ);
 	static CPlayerX* Create(D3DXVECTOR3 pos);
-	int GetPLife() { return m_nLife; };
+	inline int GetPLife() { return m_nLife; };
 
-	D3DXVECTOR3 GetPos() { return m_pos; };
-	D3DXVECTOR3 GetMove() { return m_move; };
+	inline D3DXVECTOR3 GetPos() { return m_pos; };
+	inline D3DXVECTOR3 GetMove() { return m_move; };
 private:
 
 	//モーション用定数
@@ -62,7 +62,7 @@ private:
 	D3DXVECTOR3 m_WeaponCollisionPos;		//武器の角度をもとに算出する当たり判定の相対位置
 	void FloorCollision();					//床との当たり判定
 
-	void SetWeaponRot(D3DXVECTOR2 rot);		//武器の方向を設定
+	inline void SetWeaponRot(D3DXVECTOR2 rot);		//武器の方向を設定
 	void DamageAdd(int nDmg);				//ダメージ加算、生存確認
 	D3DXVECTOR3 LockOnEnemy();				//敵のロックオン
 	void AttackCollisionToEnemy();			//敵への攻撃判定

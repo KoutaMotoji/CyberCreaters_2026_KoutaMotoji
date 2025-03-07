@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(t_player.h)
+//  リザルトシーン用ボス処理(t_player.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -13,11 +13,7 @@
 
 #include "manager.h"
 
-static constexpr int RB_MAX_MODELPARTS = 21;
 
-static constexpr int RB_MAX_PARTS = 21;
-static constexpr int RB_MAX_KEYSET = 21;
-static constexpr int RB_MAX_MOTION = 7;
 
 class CResultBoss :public CObject
 {
@@ -29,11 +25,17 @@ public:
 	void Update()override;		//更新
 	void Draw()override;		//描画
 
-	void AddMove(D3DXVECTOR3 move) { m_move += move; }
+	inline void AddMove(D3DXVECTOR3 move) { m_move += move; }
 	static CResultBoss* Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 
 	D3DXVECTOR3 GetPos() { return m_pos; };
 private:
+	static constexpr int RB_MAX_MODELPARTS = 21;
+
+	static constexpr int RB_MAX_PARTS = 21;
+	static constexpr int RB_MAX_KEYSET = 21;
+	static constexpr int RB_MAX_MOTION = 7;
+
 	D3DXVECTOR3 m_pos, m_rot, m_size;	//座標・回転・大きさ
 	D3DXVECTOR3 m_move;				//移動量
 	D3DXVECTOR3 m_OldPos;			//過去の位置

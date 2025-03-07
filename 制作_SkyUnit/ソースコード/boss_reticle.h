@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(object3D.h)
+//		ボスのビーム射撃時のレティクルの処理(boss_reticle.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -20,7 +20,7 @@ public:
 	void Update()override;		//更新
 	void Draw()override;		//描画
 	static CBossReticle* Create(D3DXVECTOR3 pos,float Radius,int nLife,float Rotate);
-	bool GetLifeState() { return m_nLife <= 0; }
+	inline bool GetLifeState() { return m_nLife <= 0; }
 private:
 	int m_nLife;
 	float m_RotateSpeed;

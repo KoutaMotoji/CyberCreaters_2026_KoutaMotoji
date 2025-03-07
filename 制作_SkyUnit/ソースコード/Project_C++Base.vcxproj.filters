@@ -127,6 +127,9 @@
     <Filter Include="ヘッダー ファイル\3D\TutorialObj">
       <UniqueIdentifier>{be87f108-4269-4aef-8b21-59c6e94676a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Library">
+      <UniqueIdentifier>{ab382d09-bca0-4872-8aff-1e372210f855}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,9 +159,6 @@
     <ClCompile Include="modelparts.cpp">
       <Filter>ソース ファイル\3D\Model</Filter>
     </ClCompile>
-    <ClCompile Include="motion.cpp">
-      <Filter>ソース ファイル\3D\Model</Filter>
-    </ClCompile>
     <ClCompile Include="number.cpp">
       <Filter>ソース ファイル\2D</Filter>
     </ClCompile>
@@ -173,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="objectX.cpp">
       <Filter>ソース ファイル\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="particle.cpp">
-      <Filter>ソース ファイル\2D</Filter>
     </ClCompile>
     <ClCompile Include="particle3D.cpp">
       <Filter>ソース ファイル\3D</Filter>
@@ -344,9 +341,6 @@
     <ClInclude Include="modelparts.h">
       <Filter>ヘッダー ファイル\3D\Model</Filter>
     </ClInclude>
-    <ClInclude Include="motion.h">
-      <Filter>ヘッダー ファイル\3D\Model</Filter>
-    </ClInclude>
     <ClInclude Include="number.h">
       <Filter>ヘッダー ファイル\2D</Filter>
     </ClInclude>
@@ -361,9 +355,6 @@
     </ClInclude>
     <ClInclude Include="objectX.h">
       <Filter>ヘッダー ファイル\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="particle.h">
-      <Filter>ヘッダー ファイル\2D</Filter>
     </ClInclude>
     <ClInclude Include="particle3D.h">
       <Filter>ヘッダー ファイル\3D</Filter>
@@ -503,5 +494,16 @@
     <ClInclude Include="tu_sky.h">
       <Filter>ヘッダー ファイル\3D\TutorialObj</Filter>
     </ClInclude>
+    <ClInclude Include="inicpp.h">
+      <Filter>ヘッダー ファイル\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>ヘッダー ファイル\Library</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\TEXT\Config.ini">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

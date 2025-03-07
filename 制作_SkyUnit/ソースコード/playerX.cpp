@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(playerX.cpp)
+//  プレイヤー処理(playerX.cpp)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -33,6 +33,7 @@ CPlayerX::CPlayerX():m_nLife(1000),m_fWeaponRadius(25),
 					m_bTransformed(false), m_bDamaged(false),
 					m_DamageTime(0), m_bBlend(false), m_bAttack(false)
 {
+	//モデルパーツを一括で初期化
 	for (int i = 0; i < MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i] = nullptr;
@@ -53,12 +54,12 @@ CPlayerX::~CPlayerX()
 //==========================================================================================
 void CPlayerX::Init()
 {
-	MotionInit();
-	m_pReticle = CReticle::Create({ 0.0f,0.0f,500.0f });
-	CObject::SetType(TYPE_3D_PLAYER);
-	m_pShadow = CShadow::Create({ 0.0f,0.0f,0.0f });
-	CGaugeLife::Create(MAX_LIFE);
-	m_pMainUI = CMainUI::Create();
+	MotionInit();		//モーションの初期設定
+	m_pReticle = CReticle::Create({ 0.0f,0.0f,500.0f });	//レティクルのインスタンスを取得
+	CObject::SetType(TYPE_3D_PLAYER);						//オブジェクト一括管理用のタイプを設定
+	m_pShadow = CShadow::Create({ 0.0f,0.0f,0.0f });		//丸影(板ポリゴン)のインスタンスを取得
+	CGaugeLife::Create(MAX_LIFE);							//自身のＨＰゲージを生成
+	m_pMainUI = CMainUI::Create();							//プレイヤー用ＵＩのインスタンスを取得
 }
 
 //==========================================================================================
@@ -66,6 +67,7 @@ void CPlayerX::Init()
 //==========================================================================================
 void CPlayerX::Uninit()
 {
+	//モデルパーツの終了処理
 	for (int i = 0; i < MAX_MODELPARTS; ++i)
 	{
 		m_apModelParts[i]->Uninit();
@@ -77,18 +79,19 @@ void CPlayerX::Uninit()
 //==========================================================================================
 void CPlayerX::Update()
 {
-	D3DXVECTOR3 CameraPos;
-	m_pShadow->SetShadowGround(m_pos);
-	ReticleController();
-	if (!MotionBlending())
-	{
+	D3DXVECTOR3 CameraPos;		//カメラの座標移動用ローカル変数
+	m_pShadow->SetShadowGround(m_pos);	//影の位置をプレイヤーに合わせる
+	ReticleController();		//レティクルの位置を調整
+	if (!MotionBlending())	//モーションブレンド中か判断
+	{//モーションブレンド中でなければ通常のモーション再生
 		SetNextKey();
 	}
 
-	FloorCollision();
-	PMove(CameraPos.z);
-	if (!m_bMotion)
+	FloorCollision();	//プレイヤー移動制限の当たり判定
+	PMove(CameraPos.z);	//プレイヤー移動関連の処理
+	if (!m_bMotion)		//特定のモーション中か判断
 	{
+		//XボタンかRキーを押したら変形
 		if (CManager::GetInstance()->GetJoypad()->GetTrigger(CJoypad::JOYPAD_X) == true||
 			CManager::GetInstance()->GetKeyboard()->GetTrigger(DIK_R) == true)
 		{
@@ -148,6 +151,7 @@ void CPlayerX::Update()
 
 void CPlayerX::SetDamageState()
 {
+	//ダメージを受けていなければダメージ状態にし、ＨＰを減算
 	if (!m_bDamaged)
 	{
 		m_bDamaged = true;

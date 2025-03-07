@@ -1,6 +1,6 @@
 //===============================================================================
 //
-//  C++使った2D(eff_smoke.h)
+//  リザルト画面演出の煙エフェクト(eff_smoke.h)
 //								制作：元地弘汰
 // 
 //===============================================================================
@@ -13,7 +13,7 @@
 class CEffSmoke :public CBillboard
 {
 public:
-	CEffSmoke(int nPriority = 1);	//コンストラクタ
+	CEffSmoke(int nPriority = 2);	//コンストラクタ
 	~CEffSmoke()override;			//デストラクタ
 	void Init()override;		//初期化
 	void Uninit()override;		//終了
